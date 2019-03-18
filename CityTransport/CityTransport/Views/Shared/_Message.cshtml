@@ -1,0 +1,7 @@
+﻿<div>
+    @if (TempData.ContainsKey(MessageConstants.Name))
+    {
+        var message = TempData.Get<MessageModel>(MessageConstants.Name);
+        <message type="@message.Type" message="@message.Message"></message>
+    }
+</div>

@@ -1,0 +1,214 @@
+﻿@model TimeTableIndexWithRoutesViewModel
+@{
+    ViewData["Title"] = "IndexWithRoutes";
+}
+
+<h2 class="text-center">Create/Edit Timetable</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#routes" data-toggle="tab">View/Edit Routes</a></li>
+            <li><a href="#route" data-toggle="tab">Create/Edit Route</a></li>
+            <li><a href="#timeTable" data-toggle="tab">Create/Edit Stops</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+
+            <div class="tab-pane active" id="routes">
+                <form asp-action="FilterRoutes" asp-controller="TimeTable" class="form-inline">
+                    <input type="hidden" asp-for="LineId" />
+                    <div class="form-group">
+                        <label asp-for="Direction"></label>
+                        <select asp-for="Direction" asp-items="Model.DirectionTypes" class="form-control">
+                            <option disabled selected>--- SELECT ---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Day"></label>
+                        <select asp-for="Day" asp-items="Model.DayTypes" class="form-control">
+                            <option disabled selected>--- SELECT ---</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2">Filter</button>
+                </form>
+
+                @if (!Model.Routes.Any())
+                {
+                    @*<h3>No Routes for this line with this direction and day!</h3>*@
+                }
+                else
+                {
+                    <div class="d-flex justify-content-between">
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                                <tr class="row">
+                                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Route name</th>
+                                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Details</th>
+                                    <th scope="col" class="col-lg-2 d-flex justify-content-center">Edit</th>
+                                    <th scope="col" class="col-lg-2 d-flex justify-content-center">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var route in Model.Routes)
+                                {
+                                    <tr class="row">
+                                        <th scope="row" class="col-lg-4 d-flex justify-content-center">@route.RouteName</th>
+                                        <td class="col-lg-4 d-flex justify-content-center">
+                                            <a asp-area="Admin" asp-controller="TimeTable" asp-action="DetailsRoute" asp-route-Id="@route.Id" asp-route-lineId="@Model.LineId" class="btn btn-default">Details</a>
+                                        </td>
+                                        <td class="col-lg-2 d-flex justify-content-center">
+                                            <a asp-area="Admin" asp-controller="TimeTable" asp-action="EditRoute" asp-route-Id="@route.Id" asp-route-lineId="@Model.LineId" class="btn btn-default">Edit</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+
+            @if (Model.EditRoute == null)
+            {
+                <div class="tab-pane" id="route">
+                    <form asp-area="Admin" asp-controller="Route" asp-action="Create" method="post">
+                        <input type="hidden" asp-for="CreateRoute.LineId" />
+                        <div class="form-group">
+                            <label asp-for="CreateRoute.RouteName"></label>
+                            <input asp-for="CreateRoute.RouteName" class="form-control">
+                            <span asp-validation-for="CreateRoute.RouteName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateRoute.Direction"></label>
+                            <select asp-for="CreateRoute.Direction" asp-items="Model.DirectionTypes" class="form-control">
+                                <option disabled selected>--- SELECT ---</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateRoute.Day"></label>
+                            <select asp-for="CreateRoute.Day" asp-items="Model.DayTypes" class="form-control">
+                                <option disabled selected>--- SELECT ---</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane" id="route">
+                    <form asp-area="Admin" asp-controller="Route" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="EditRoute.Id" />
+                        <div class="form-group">
+                            <label asp-for="EditRoute.RouteName"></label>
+                            <input asp-for="EditRoute.RouteName" class="form-control">
+                            <span asp-validation-for="EditRoute.RouteName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EditRoute.Day"></label>
+                            <select asp-for="EditRoute.Day" asp-items="Model.DayTypes" class="form-control">
+                                <option disabled selected>--- SELECT ---</option>
+                            </select>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            }
+
+                @if (Model.CreateStop == null)
+                {
+                <div class="tab-pane" id="timeTable">
+                    <h3>Choice Route Details!</h3>
+                </div>
+                }
+                else
+                {
+                <div class="tab-pane" id="timeTable">
+
+                        <button style="margin-top:1em" class="btn btn-default pull-left" data-toggle="modal" data-target="#myModal">Create Stop</button>
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+
+                                    <div class="modal-header">
+                                        <h3 class="modal-title text-center">Create Stop</h3>
+                                    </div>
+
+                                    <div class="modal-body">
+                                        <form asp-area="Admin" asp-controller="TimeTable" asp-action="CreateStop" method="post">
+                                            <input type="hidden" asp-for="CreateStop.RouteId" />
+                                            <div class="form-group">
+                                                <label asp-for="CreateStop.StationName"></label>
+                                                <select asp-for="CreateStop.StationName" asp-items="Model.CreateStop.Stations" class="form-control">
+                                                    <option disabled selected>--- SELECT ---</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label asp-for="CreateStop.DepartureTime"></label>
+                                                <input asp-for="CreateStop.DepartureTime" class="form-control">
+                                                <span asp-validation-for="CreateStop.DepartureTime" class="text-danger"></span>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-primary">Create</button>
+                                                <button class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    @if (Model.TimeTables.Any())
+                    {
+                        var i = 0;
+
+                        <div class="d-flex justify-content-between">
+                            <table class="table table-striped table-bordered">
+                                <thead>
+                                    <tr class="row">
+                                        <th scope="col" class="col-lg-2 d-flex justify-content-center">Stop №</th>
+                                        <th scope="col" class="col-lg-3 d-flex justify-content-center">Station</th>
+                                        <th scope="col" class="col-lg-3 d-flex justify-content-center">Departure Time</th>
+                                        <th scope="col" class="col-lg-4 d-flex justify-content-center"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var timeTable in Model.TimeTables)
+                                    {
+                                        i++;
+                                        <tr class="row">
+                                            <th scope="row" class="col-lg-2 d-flex justify-content-center">@i</th>
+                                            <th scope="row" class="col-lg-3 d-flex justify-content-center">@timeTable.StationName</th>
+                                            <td class="col-lg-3 d-flex justify-content-center">@timeTable.DepartureTime</td>
+                                            <td class="col-lg-4 d-flex justify-content-center">
+                                                <a asp-area="Admin" asp-controller="TimeTable" asp-action="EditStop" asp-route-Id="@timeTable.Id" class="btn btn-default">Edit</a>
+                                            </td>
+
+                                        </tr>
+                                     
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+
+                </div>
+                }
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+ <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            $('#myTab li:eq(@Model.Tab) a').tab('show');
+        });    
+    </script>
+}

@@ -1,0 +1,182 @@
+﻿@model UserDetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2 class="text-center">Details for @Model.UserEdit.Username</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
+            <li><a href="#profile" data-toggle="tab">Password</a></li>
+            <li><a href="#role" data-toggle="tab">Roles</a></li>
+            <li><a href="#card" data-toggle="tab">CustomCard</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+
+            <div class="tab-pane active" id="home">
+                <form asp-area="Admin" asp-controller="User" asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="UserEdit.Email"></label>
+                        <input asp-for="UserEdit.Email" class="form-control">
+                        <span asp-validation-for="UserEdit.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserEdit.Username"></label>
+                        <input asp-for="UserEdit.Username" class="form-control">
+                        <span asp-validation-for="UserEdit.Username" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserEdit.FisrtName">FisrtName</label>
+                        <input asp-for="UserEdit.FisrtName" class="form-control">
+                        <span asp-validation-for="UserEdit.FisrtName" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserEdit.LastName"></label>
+                        <input asp-for="UserEdit.LastName" class="form-control">
+                        <span asp-validation-for="UserEdit.LastName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="tab-pane fade" id="profile">
+                <form asp-area="Admin" asp-controller="User" asp-action="UpdatePassword" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="form-group">
+                        <label asp-for="UserChangePassword.Password"></label>
+                        <input asp-for="UserChangePassword.Password" class="form-control">
+                        <span asp-validation-for="UserChangePassword.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="UserChangePassword.ConfirmPassword"></label>
+                        <input asp-for="UserChangePassword.ConfirmPassword" class="form-control">
+                        <span asp-validation-for="UserChangePassword.ConfirmPassword" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </div>
+                </form>
+            </div>
+
+            @if (!Model.UserRoles.Any())
+            {
+                <div class="tab-pane fade" id="role">
+                    <form asp-area="Admin" asp-action="AddToRole" asp-controller="User" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <label asp-for="Roles"></label>
+                        <select name="role" asp-items="Model.Roles" class="form-control">
+                            <option disabled selected>--- SELECT ---</option>
+                        </select>
+                        <br />
+                        <button type="submit" class="btn btn-primary">Add</button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane fade" id="role">
+                    <h3>Roles:</h3>
+                    <ul style="padding-bottom:2em">
+                        @foreach (var role in Model.UserRoles)
+                        {
+                            <li>@role</li>
+                        }
+                    </ul>
+
+                    <form method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <label asp-for="Roles"></label>
+                        <select name="role" asp-items="Model.Roles" class="form-control">
+                            <option disabled selected>--- SELECT ---</option>
+                        </select>
+                        <br />
+                        <button asp-area="Admin" asp-action="AddToRole" asp-controller="User" type="submit" class="btn btn-primary">Add</button>
+                        <button asp-area="Admin" asp-action="RemoveFromRole" asp-controller="User" type="submit" class="btn btn-primary">Remove</button>
+
+                    </form>
+                </div>
+            }
+
+            @if (Model.EditCustomerCard == null)
+            {
+                <div class="tab-pane fade" id="card">
+                    <form asp-area="Admin" asp-controller="CustomerCard" asp-action="Create" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="CreateCustomerCard.TypeCard"></label>
+                            <select asp-for="CreateCustomerCard.TypeCard" asp-items="Model.CardTypes" class="form-control">
+                                <option disabled selected>--- SELECT ---</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateCustomerCard.CountTrips"></label>
+                            <input asp-for="CreateCustomerCard.CountTrips" class="form-control">
+                            <span asp-validation-for="CreateCustomerCard.CountTrips" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CreateCustomerCard.ValidateFrom"></label>
+                            <input asp-for="CreateCustomerCard.ValidateFrom" class="form-control">
+                            <span asp-validation-for="CreateCustomerCard.ValidateFrom" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="tab-pane fade" id="card">
+                    <form asp-area="Admin" asp-controller="CustomerCard" asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="EditCustomerCard.Id" />
+                        <div class="form-group">
+                            <label asp-for="EditCustomerCard.CustomerCardNumber"></label>
+                            <input asp-for="EditCustomerCard.CustomerCardNumber" class="form-control">
+                            <span asp-validation-for="EditCustomerCard.CustomerCardNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EditCustomerCard.TypeCard"></label>
+                            <select asp-for="EditCustomerCard.TypeCard" asp-items="Model.CardTypes" class="form-control">
+                                <option disabled selected>--- SELECT ---</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EditCustomerCard.CountTrips"></label>
+                            <input asp-for="EditCustomerCard.CountTrips" class="form-control">
+                            <span asp-validation-for="EditCustomerCard.CountTrips" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EditCustomerCard.ValidateFrom"></label>
+                            <input asp-for="EditCustomerCard.ValidateFrom" class="form-control">
+                            <span asp-validation-for="EditCustomerCard.ValidateFrom" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="EditCustomerCard.ValidateTo"></label>
+                            <input asp-for="EditCustomerCard.ValidateTo" class="form-control">
+                            <span asp-validation-for="EditCustomerCard.ValidateTo" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Edit</button>
+                        </div>
+                    </form>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        $(function () {
+            $('#myTab li:eq(@Model.Tab) a').tab('show');
+        });
+    </script>
+}

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<LineViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (!Model.Any())
+{
+    <h3>No Lines!</h3>
+    <div style="padding-bottom:3em">
+        <a asp-area="Admin" asp-controller="Line" asp-action="Create" class="btn btn-default pull-left">Create Line</a>
+    </div>
+}
+else
+{
+    <h2 class="text-center">Lines</h2>
+    <div style="padding-bottom:3em">
+        <a asp-area="Admin" asp-controller="Line" asp-action="Create" class="btn btn-default pull-left">Create Line</a>
+    </div>
+    <div class="d-flex justify-content-between">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="row">
+                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Line name</th>
+                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Line type</th>
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center"></th>
+                    <th scope="col" class="col-lg-3 d-flex justify-content-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var line in Model)
+                {
+                <tr class="row">
+                    <th scope="row" class="col-lg-4 d-flex justify-content-center">@line.LineName</th>
+                    <td class="col-lg-4 d-flex justify-content-center">@line.Type</td>
+                    <td class="col-lg-2 d-flex justify-content-center">
+                        <a asp-area="Admin" asp-controller="Line" asp-action="Edit" asp-route-Id="@line.Id" class="btn btn-default">Edit</a>
+                    </td>
+                    <td class="col-lg-3 d-flex justify-content-center">
+                        <a asp-area="Admin" asp-controller="TimeTable" asp-action="Index" asp-route-Id="@line.Id" class="btn btn-default">TimeTable</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+

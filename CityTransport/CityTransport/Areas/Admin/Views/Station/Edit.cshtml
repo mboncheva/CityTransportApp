@@ -1,0 +1,32 @@
+﻿@model EditStationInputModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 class="text-left">Edit Station</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="StationName"></label>
+                <input asp-for="StationName" class="form-control" />
+                <span asp-validation-for="StationName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StationCode"></label>
+                <input asp-for="StationCode" class="form-control" />
+                <span asp-validation-for="StationCode" class="text-danger"></span>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,46 @@
+﻿@model IEnumerable<StationViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (!Model.Any())
+{
+    <h3>No Stations!</h3>
+    <div style="padding-bottom:3em">
+        <a asp-area="Admin" asp-controller="Station" asp-action="Create" class="btn btn-default pull-left">Create Station</a>
+    </div>
+}
+else
+{
+    <h2 class="text-center">Stations</h2>
+    <div style="padding-bottom:3em">
+        <a asp-area="Admin" asp-controller="Station" asp-action="Create" class="btn btn-default pull-left">Create Station</a>
+    </div>
+    <div class="d-flex justify-content-between">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="row">
+                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Station Name</th>
+                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Station Code</th>
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center"></th>
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var station in Model)
+                {
+                    <tr class="row">
+                        <th scope="row" class="col-lg-4 d-flex justify-content-center">@station.StationName</th>
+                        <td class="col-lg-4 d-flex justify-content-center">@station.StationCode</td>
+                        <td class="col-lg-2 d-flex justify-content-center">
+                            <a asp-area="Admin" asp-controller="Station" asp-action="Edit" asp-route-Id="@station.Id" class="btn btn-default">Edit</a>
+                        </td>
+                        <td class="col-lg-2 d-flex justify-content-center">
+                            <a asp-area="Admin" asp-controller="Station" asp-action="Delete" asp-route-Id="@station.Id" class="btn btn-default">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+     </div>
+}

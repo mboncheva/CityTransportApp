@@ -1,0 +1,42 @@
+﻿@model EditLineInputModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2 class="text-left">Edit Line</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="LineName"></label>
+                <input asp-for="LineName" class="form-control" />
+                <span asp-validation-for="LineName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TypeTransport"></label>
+                <select asp-for="TypeTransport" class="form-control">
+                    @foreach (var typeTransport in Model.TransportTypes)
+                    {
+                        @if (typeTransport.ToString() == Model.TypeTransport)
+                        {
+                            <option value="@typeTransport.Value" selected>@typeTransport.Text</option>
+                        }
+
+                        <option value="@typeTransport.Value">@typeTransport.Text</option>
+
+                    }
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Edit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

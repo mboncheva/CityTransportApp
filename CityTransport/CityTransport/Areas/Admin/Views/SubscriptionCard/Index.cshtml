@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SubscriptionCardsViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+@if (!Model.Any())
+{
+    <h3>No Subscription Cards!</h3>
+    <div style="padding-bottom:3em">
+        <a asp-area="Admin" asp-controller="SubscriptionCard" asp-action="Create" class="btn btn-default pull-left">Create SubscriptionCards</a>
+    </div>
+}
+else
+{
+    <h2 class="text-center">Subscription Cards</h2>
+    <div style="padding-bottom:3em">
+        <a asp-area="Admin" asp-controller="SubscriptionCard" asp-action="Create" class="btn btn-default pull-left">Create SubscriptionCards</a>
+    </div>
+    <div class="d-flex justify-content-between">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr class="row">
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center">Type Card</th>
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center">Count Trips</th>
+                    <th scope="col" class="col-lg-1 d-flex justify-content-center">Validity</th>
+                    <th scope="col" class="col-lg-1 d-flex justify-content-center">Price</th>
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center">Ticket Price</th>
+                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Ticket price after subscription depletion</th>
+                    <th scope="col" class="col-lg-2 d-flex justify-content-center"></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var subscriptionCard in Model)
+                {
+                <tr class="row">
+                    <th scope="row" class="col-lg-2 d-flex justify-content-center">@subscriptionCard.TypeCard</th>
+                    <td class="col-lg-2 d-flex justify-content-center">@subscriptionCard.CountTrips</td>
+                    <td class="col-lg-1 d-flex justify-content-center">@subscriptionCard.ValidityCard</td>
+                    <td class="col-lg-1 d-flex justify-content-center">@subscriptionCard.Price</td>
+                    <td class="col-lg-2 d-flex justify-content-center">@subscriptionCard.TicketPrice</td>
+                    <td class="col-lg-4 d-flex justify-content-center">1.30</td>
+                    <td class="col-lg-2 d-flex justify-content-center">
+                        <a asp-area="Admin" asp-controller="SubscriptionCard" asp-action="Edit" asp-route-Id="@subscriptionCard.Id" class="btn btn-default">Edit</a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

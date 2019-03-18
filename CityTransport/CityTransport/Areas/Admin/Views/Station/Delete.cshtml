@@ -1,0 +1,9 @@
+﻿@model DeleteStationViewModel
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Are you sure you want to delete station @Model.StationName?</h2>
+
+<a asp-area="Admin" asp-controller="Station" asp-action="DeleteConfirmed" asp-route-Id="@Model.Id" class="btn btn-danger">Yes</a>
+<a asp-area="Admin" asp-controller="Station" asp-action="Index" class="btn btn-danger">No!</a>
