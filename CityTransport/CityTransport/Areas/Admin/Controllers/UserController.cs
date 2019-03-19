@@ -1,7 +1,6 @@
 ﻿namespace CityTransport.Web.Areas.Admin.Controllers
 {
     using CityTransport.Common.Constants;
-    using CityTransport.Common.Models.Admin.InputModels.CustomerCard;
     using CityTransport.Common.Models.Admin.InputModels.User;
     using CityTransport.Common.Models.Admin.ViewModels.User;
     using CityTransport.Services.Admin.Interfaces;

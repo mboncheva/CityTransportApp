@@ -20,17 +20,37 @@
     public class UserService : BaseService, IUserService
     {
         private readonly UserManager<User> UserManager;
+        private readonly SignInManager<User> SignInManager;
+
         private readonly RoleManager<IdentityRole> RoleManager;
         private readonly BaseModel BaseModel;
 
         public UserService(CityTransprtDbContext Db,
             UserManager<User> userManager,
+            SignInManager<User> signInManager,
             RoleManager<IdentityRole> roleManager)
             : base(Db)
         {
             this.UserManager = userManager;
+            this.SignInManager = signInManager;
             this.RoleManager = roleManager;
             this.BaseModel = new BaseModel();
+        }
+
+
+        public async Task<BaseModel> LoginUser(LoginInputModel model)
+        {
+            var result = await this.SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: true);
+            if (result.Succeeded)
+            {
+                this.BaseModel.HasError = false;
+            }
+            else
+            {
+                this.BaseModel.HasError = true;
+            }
+
+            return this.BaseModel;
         }
 
         public async Task<ICollection<UserViewModel>> UsersAsync()

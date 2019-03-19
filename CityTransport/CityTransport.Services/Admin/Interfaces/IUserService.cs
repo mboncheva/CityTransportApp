@@ -10,6 +10,8 @@
     {
         Task<ICollection<UserViewModel>> UsersAsync();
 
+        Task<BaseModel> LoginUser(LoginInputModel model);
+
         Task<UserDetailsViewModel> Details(string id, string tab);
 
         Task<string> CreateUserAsync(CreateUserInputModel model);
