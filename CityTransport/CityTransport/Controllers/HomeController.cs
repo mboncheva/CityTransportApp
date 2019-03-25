@@ -26,7 +26,7 @@
             return View();
         }
 
-        [Route("login")]
+        [Route("/login")]
         public IActionResult LoginUser()
         {
             HttpContext.SignOutAsync(IdentityConstants.ExternalScheme).GetAwaiter().GetResult();
