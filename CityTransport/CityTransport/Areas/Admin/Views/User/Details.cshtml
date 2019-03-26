@@ -3,15 +3,15 @@
     ViewData["Title"] = "Details";
 }
 
-<h2 class="text-center">Details for @Model.UserEdit.Username</h2>
+<h2 class="text-center m-2">Details for @Model.UserEdit.Username</h2>
 
 <div class="row">
     <div class="col-md-8">
         <ul class="nav nav-tabs" id="myTab">
-            <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
-            <li><a href="#profile" data-toggle="tab">Password</a></li>
-            <li><a href="#role" data-toggle="tab">Roles</a></li>
-            <li><a href="#card" data-toggle="tab">CustomCard</a></li>
+            <li class="active nav-item"><a class="nav-link" href="#home" data-toggle="tab">Profile</a></li>
+            <li class="nav-item"><a class="nav-link" href="#profile" data-toggle="tab">Password</a></li>
+            <li class="nav-item"><a class="nav-link" href="#role" data-toggle="tab">Roles</a></li>
+            <li class="nav-item"><a class="nav-link" href="#card" data-toggle="tab">CustomCard</a></li>
         </ul>
         <div id="myTabContent" class="tab-content">
 
@@ -39,7 +39,7 @@
                         <span asp-validation-for="UserEdit.LastName" class="text-danger"></span>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-outline-info">Edit</button>
                     </div>
                 </form>
             </div>
@@ -58,7 +58,7 @@
                         <span asp-validation-for="UserChangePassword.ConfirmPassword" class="text-danger"></span>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-outline-info">Update</button>
                     </div>
                 </form>
             </div>
@@ -73,7 +73,7 @@
                             <option disabled selected>--- SELECT ---</option>
                         </select>
                         <br />
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="submit" class="btn btn-outline-info">Add</button>
                     </form>
                 </div>
             }
@@ -81,7 +81,7 @@
             {
                 <div class="tab-pane fade" id="role">
                     <h3>Roles:</h3>
-                    <ul style="padding-bottom:2em">
+                    <ul class="mb-3">
                         @foreach (var role in Model.UserRoles)
                         {
                             <li>@role</li>
@@ -95,8 +95,8 @@
                             <option disabled selected>--- SELECT ---</option>
                         </select>
                         <br />
-                        <button asp-area="Admin" asp-action="AddToRole" asp-controller="User" type="submit" class="btn btn-primary">Add</button>
-                        <button asp-area="Admin" asp-action="RemoveFromRole" asp-controller="User" type="submit" class="btn btn-primary">Remove</button>
+                        <button asp-area="Admin" asp-action="AddToRole" asp-controller="User" type="submit" class="btn btn-outline-info">Add</button>
+                        <button asp-area="Admin" asp-action="RemoveFromRole" asp-controller="User" type="submit" class="btn btn-outline-danger">Remove</button>
 
                     </form>
                 </div>
@@ -124,7 +124,7 @@
                             <span asp-validation-for="CreateCustomerCard.ValidateFrom" class="text-danger"></span>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-outline-info">Create</button>
                         </div>
                     </form>
                 </div>
@@ -162,7 +162,7 @@
                             <span asp-validation-for="EditCustomerCard.ValidateTo" class="text-danger"></span>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary">Edit</button>
+                            <button type="submit" class="btn btn-outline-info">Edit</button>
                         </div>
                     </form>
                 </div>

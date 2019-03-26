@@ -5,42 +5,40 @@
 
 @if (!Model.Any())
 {
-    <h3>No Stations!</h3>
-    <div style="padding-bottom:3em">
-        <a asp-area="Admin" asp-controller="Station" asp-action="Create" class="btn btn-default pull-left">Create Station</a>
+    <h3 class="text-center m-3">No Stations!</h3>
+    <div class="mb-1">
+        <a asp-area="Admin" asp-controller="Station" asp-action="Create" class="btn btn-info pull-left">Create Station</a>
     </div>
 }
 else
 {
-    <h2 class="text-center">Stations</h2>
-    <div style="padding-bottom:3em">
-        <a asp-area="Admin" asp-controller="Station" asp-action="Create" class="btn btn-default pull-left">Create Station</a>
+    <h2 class="text-center m-3">Stations</h2>
+    <div class="mb-1">
+        <a asp-area="Admin" asp-controller="Station" asp-action="Create" class="btn btn-info pull-left">Create Station</a>
     </div>
-    <div class="d-flex justify-content-between">
         <table class="table table-striped table-bordered">
             <thead>
-                <tr class="row">
-                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Station Name</th>
-                    <th scope="col" class="col-lg-4 d-flex justify-content-center">Station Code</th>
-                    <th scope="col" class="col-lg-2 d-flex justify-content-center"></th>
-                    <th scope="col" class="col-lg-2 d-flex justify-content-center"></th>
+                <tr>
+                    <th>Station Name</th>
+                    <th>Station Code</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var station in Model)
                 {
-                    <tr class="row">
-                        <th scope="row" class="col-lg-4 d-flex justify-content-center">@station.StationName</th>
-                        <td class="col-lg-4 d-flex justify-content-center">@station.StationCode</td>
-                        <td class="col-lg-2 d-flex justify-content-center">
-                            <a asp-area="Admin" asp-controller="Station" asp-action="Edit" asp-route-Id="@station.Id" class="btn btn-default">Edit</a>
+                    <tr>
+                        <th>@station.StationName</th>
+                        <td>@station.StationCode</td>
+                        <td>
+                            <a asp-area="Admin" asp-controller="Station" asp-action="Edit" asp-route-Id="@station.Id" class="btn btn-outline-info">Edit</a>
                         </td>
-                        <td class="col-lg-2 d-flex justify-content-center">
-                            <a asp-area="Admin" asp-controller="Station" asp-action="Delete" asp-route-Id="@station.Id" class="btn btn-default">Delete</a>
+                        <td>
+                            <a asp-area="Admin" asp-controller="Station" asp-action="Delete" asp-route-Id="@station.Id" class="btn btn-outline-info">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
-     </div>
 }
