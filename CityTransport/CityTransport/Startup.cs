@@ -12,6 +12,8 @@ using CityTransport.Web.Common.Middlewares;
 using CityTransport.Services.Admin.Interfaces;
 using CityTransport.Services.Admin;
 using Microsoft.AspNetCore.Routing;
+using CityTransport.Services.Main.Interfaces;
+using CityTransport.Services.Main;
 
 namespace CityTransport
 {
@@ -98,6 +100,8 @@ namespace CityTransport
             services.AddScoped<IStationService, StationService>();
             services.AddScoped<ITimeTableService, TimeTableService>();
             services.AddScoped<IRouteService, RouteService>();
+            services.AddScoped<ILinesService, LinesService>();
+
 
         }
     }

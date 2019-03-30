@@ -23,7 +23,7 @@
 
         public IActionResult Index()
         {
-            var model = this.SubscriptionCardService.SubscriptionCards();
+            var model = this.SubscriptionCardService.SubscriptionCards().ToList();
 
             return this.View(model);
         }

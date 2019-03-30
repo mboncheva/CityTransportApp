@@ -6,6 +6,7 @@
     using CityTransport.Web.Common.Extensions;
     using CityTransport.Web.Common.Helpers.Messages;
     using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
 
     public class StationController : AdminController
     {
@@ -17,7 +18,7 @@
 
         public IActionResult Index()
         {
-            var model = this.StationService.Stations();
+            var model = this.StationService.Stations().ToList();
 
             return View(model);
         }

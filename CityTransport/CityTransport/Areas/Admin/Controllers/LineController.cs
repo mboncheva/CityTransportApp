@@ -23,7 +23,7 @@
 
         public IActionResult Index()
         {
-            var model = this.LineService.Lines();
+            var model = this.LineService.Lines().ToList();
             return View(model);
         }
 

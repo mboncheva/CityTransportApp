@@ -1,0 +1,57 @@
+﻿@model AllLinesViewModel
+@{
+    ViewData["Title"] = "Lines";
+}
+
+<div class="container float-left m-3">
+    <h2 class="font-weight-bold">Разписания</h2>
+</div>
+
+<div class="container row m-4">
+    @if (Model.BusLines.Any())
+    {
+        <div class="container mb-1">
+            <h5>Автобусни линии:</h5>
+            <ul class="nav nav-pills">
+                @foreach (var line in Model.BusLines)
+                {
+                    <li class="pl-1 mb-1">
+                        <a class="nav-link bg-light text-secondary font-weight-bold"
+                           asp-controller="TimeTables" asp-action="TimeTable" asp-route-Id="@line.Id">@line.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    @if (Model.TrolleiLines.Any())
+    {
+        <div class="container mb-1">
+            <h5>Тролейбусни линии:</h5>
+            <ul class="nav nav-pills">
+                @foreach (var line in Model.TrolleiLines)
+                {
+                    <li class="pl-1 mb-1">
+                        <a class="nav-link bg-light text-secondary font-weight-bold"
+                           asp-controller="TimeTables" asp-action="TimeTable" asp-route-Id="@line.Id">@line.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+    @if (Model.TramLines.Any())
+    {
+        <div class="container">
+            <h5>Трамвайни линии:</h5>
+            <ul class="nav nav-pills">
+                @foreach (var line in Model.TramLines)
+                {
+                    <li class="pl-1 mb-1">
+                        <a class="nav-link bg-light text-secondary font-weight-bold"
+                           asp-controller="TimeTables" asp-action="TimeTable" asp-route-Id="@line.Id">@line.Name</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+</div>
