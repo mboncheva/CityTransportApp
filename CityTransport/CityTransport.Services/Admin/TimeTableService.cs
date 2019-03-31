@@ -156,13 +156,14 @@
                 Stations= stations
             };
 
+            var orderTimeTables = timeTables.OrderBy(x => x.DepartureTime).ToList();
             var model = new TimeTableIndexWithRoutesViewModel
             {
                 LineId = route.LineId,
                 Tab = "2",
                 Day = route.DayType.ToString(),
                 Direction = route.Direction.ToString(),
-                TimeTables = timeTables,
+                TimeTables = orderTimeTables,
                 CreateStop = createStopModel
             };
 
