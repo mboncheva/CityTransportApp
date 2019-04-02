@@ -1,0 +1,39 @@
+﻿@model IEnumerable<RoutesViewModel>
+@{
+    ViewData["Title"] = "_TimeTableHolidayGoPartial";
+}
+
+<div class="container mt-2">
+    <table class="table table-sm table-bordered bg-light w-auto">
+        <thead>
+            <tr>
+                <th scope="col" class="text-white bg-info">Спирка:</th>
+                <th scope="col" colspan="8" class="text-center text-white bg-info">Час на тръгване:</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var route in Model)
+            {
+                <tr>
+                    <td scope="row">@route.StationName</td>
+
+                    @foreach (var departureTime in route.DepartureTimes)
+                    {
+                        if (departureTime == default(TimeSpan))
+                        {
+                            <td></td>
+
+                        }
+                        else
+                        {
+                            <td>@departureTime</td>
+
+                        }
+                    }
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+

@@ -1,0 +1,36 @@
+﻿@model TimeTableForLineViewModel
+@{
+    ViewData["Title"] = "TimeTable";
+}
+
+<div class="container m-3">
+    <h2 class="font-weight-bold float-left pr-3">Автобусна линия @Model.LineName</h2>
+        <form>
+            <button type="submit" class="btn btn-outline-info" asp-controller="TimeTables" asp-action="TimeTableGo" asp-route-Id="@Model.LineId">
+            @Model.DirectionModel.FromDirectionGo - @Model.DirectionModel.ToDirectionGo
+            </button>
+            <button type="submit" class="btn btn-outline-info" asp-controller="TimeTables" asp-action="TimeTableReturn" asp-route-Id="@Model.LineId">
+                @Model.DirectionModel.FromDirectionReturn - @Model.DirectionModel.ToDirectionReturn
+            </button>
+        </form>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <ul class="nav nav-tabs" id="myTab">
+            <li class="nav-item"><a class="nav-link active" href="#workDay" data-toggle="tab">Делник</a></li>
+            <li class="nav-item"><a class="nav-link" href="#holiday" data-toggle="tab">Празник</a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+
+            <div class="tab-pane active" id="workDay">
+                <partial name="_TimeTablePartial" model="Model.RoutesWorkDay" />
+            </div>
+
+            <div class="tab-pane" id="holiday">
+                <partial name="_TimeTablePartial" model="Model.RoutesHoliday" />
+            </div>
+
+        </div>
+    </div>
+</div>

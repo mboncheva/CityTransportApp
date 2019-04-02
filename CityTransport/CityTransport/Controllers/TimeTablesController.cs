@@ -1,26 +1,37 @@
 ﻿namespace CityTransport.Web.Controllers
 {
+    using CityTransport.Models.Enums;
     using CityTransport.Services.Main.Interfaces;
     using Microsoft.AspNetCore.Mvc;
 
     public class TimeTablesController : Controller
     {
-        private readonly ILinesService LineService;
+        private readonly ITimeTablesService TimeTablesService;
 
-        public TimeTablesController(ILinesService lineService)
+        public TimeTablesController(ITimeTablesService timeTablesService)
         {
-            this.LineService = lineService;
+            this.TimeTablesService = timeTablesService;
         }
 
         public IActionResult Lines()
         {
-            var allLines = this.LineService.AllLines();
+            var allLines = this.TimeTablesService.AllLines();
             return this.View(allLines);
         }
 
-        public IActionResult TimeTable(int id)
+        public IActionResult TimeTableGo(int? id)
         {
-            return this.View();
+            var model = this.TimeTablesService.TimeTable(id, Direction.Go);
+
+            return this.View("TimeTable", model);
         }
+
+        public IActionResult TimeTableReturn(int? id)
+        {
+            var model = this.TimeTablesService.TimeTable(id, Direction.Return);
+
+            return this.View("TimeTable", model);
+        }
+
     }
 }

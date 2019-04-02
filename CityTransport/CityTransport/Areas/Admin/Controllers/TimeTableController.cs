@@ -52,7 +52,8 @@
                 DirectionTypes = directionTypes,
                 DayTypes = dayTypes,
                 LineId = id.Value,
-                Tab="0"
+                CreateRoute = model.CreateRoute,
+                Tab = "0"
             };
 
             return this.View("IndexWithRoutes", modelWithRoutes);

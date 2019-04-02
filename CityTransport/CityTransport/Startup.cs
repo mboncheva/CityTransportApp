@@ -100,7 +100,7 @@ namespace CityTransport
             services.AddScoped<IStationService, StationService>();
             services.AddScoped<ITimeTableService, TimeTableService>();
             services.AddScoped<IRouteService, RouteService>();
-            services.AddScoped<ILinesService, LinesService>();
+            services.AddScoped<ITimeTablesService, TimeTablesService>();
 
 
         }
